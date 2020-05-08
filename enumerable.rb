@@ -1,10 +1,15 @@
 module Enumerable
+
   def my_each
-    size.times do |x|
-      yield self[x]
+    if block_given?
+      self.length.times do |el|
+        yield self[el]
+      end
+      self
+    else
+      to_enum(:my_each)
     end
-    self
   end
 end
 
-p([2, 4, 4].my_each { |i| i * 2 })
+ p [2, 4, 4].my_each
