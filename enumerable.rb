@@ -32,6 +32,16 @@ module Enumerable
       to_enum(:my_select)
     end
   end
+
+  def my_all?
+    flag = true
+    if block_given?
+      self.my_each do |value|
+         flag = false unless yield value
+      end
+    end
+    flag
+  end
 end
 
 p [2, 4, 4].my_select
