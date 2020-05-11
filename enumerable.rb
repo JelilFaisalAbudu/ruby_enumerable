@@ -42,6 +42,19 @@ module Enumerable
     end
     flag
   end
+
+  def my_any?
+    flag = false
+    if block_given?
+      self.my_each do |value|
+        if yield value
+          flag = true
+          break
+        end
+      end
+    end
+    flag
+  end
 end
 
 p [2, 4, 4].my_select
