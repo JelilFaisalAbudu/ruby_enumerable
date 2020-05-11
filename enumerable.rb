@@ -88,6 +88,18 @@ module Enumerable
 
     counter
   end
+
+  def my_map
+      result =[]
+      if block_given?
+        self.my_each do |value|
+          result.push(yield value)
+        end
+      else
+        result = to_enum(:my_map)
+      end
+    result
+  end
 end
 
 p [2, 4, 4].my_select
