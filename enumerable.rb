@@ -22,9 +22,9 @@ module Enumerable
   end
 
   def my_select
-    result =[]
+    result = []
     if block_given?
-      self.my_each do |el|
+      my_each do |el|
         result << el if yield el
       end
       result
@@ -36,8 +36,8 @@ module Enumerable
   def my_all?
     flag = true
     if block_given?
-      self.my_each do |value|
-         flag = false unless yield value
+      my_each do |value|
+        flag = false unless yield value
       end
     end
     flag
@@ -46,7 +46,7 @@ module Enumerable
   def my_any?
     flag = false
     if block_given?
-      self.my_each do |value|
+      my_each do |value|
         if yield value
           flag = true
           break
@@ -59,7 +59,7 @@ module Enumerable
   def my_none?
     flag = true
     if block_given?
-      self.my_each do |value|
+      my_each do |value|
         if yield value
           flag = false
           break
@@ -69,7 +69,7 @@ module Enumerable
     flag
   end
 
-  def my_count(arg =nil)
+  def my_count(arg = nil)
     counter = 0
 
     if !arg.nil?
@@ -81,7 +81,7 @@ module Enumerable
         counter += 1 if yield value
       end
     else
-      my_each do |value|
+      my_each do
         counter += 1
       end
     end
@@ -90,14 +90,15 @@ module Enumerable
   end
 
   def my_map
-      result =[]
-      if block_given?
-        self.my_each do |value|
-          result.push(yield value)
-        end
-      else
-        result = to_enum(:my_map)
+    result = []
+
+    if block_given?
+      my_each do |value|
+        result.push(yield value)
       end
+    else
+      result = to_enum(:my_map)
+    end
     result
   end
 end
