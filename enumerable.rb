@@ -20,6 +20,18 @@ module Enumerable
       to_enum(:my_each_with_index)
     end
   end
+
+  def my_select
+    result =[]
+    if block_given?
+      self.my_each do |el|
+        result << el if yield el
+      end
+      result
+    else
+      to_enum(:my_select)
+    end
+  end
 end
 
-p [2, 4, 4].my_each
+p [2, 4, 4].my_select
