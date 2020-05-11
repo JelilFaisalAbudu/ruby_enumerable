@@ -68,6 +68,26 @@ module Enumerable
     end
     flag
   end
+
+  def my_count(arg =nil)
+    counter = 0
+
+    if !arg.nil?
+      my_each do |value|
+        counter += 1 if value == arg
+      end
+    elsif block_given?
+      my_each do |value|
+        counter += 1 if yield value
+      end
+    else
+      my_each do |value|
+        counter += 1
+      end
+    end
+
+    counter
+  end
 end
 
 p [2, 4, 4].my_select
