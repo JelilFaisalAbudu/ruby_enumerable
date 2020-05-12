@@ -89,16 +89,16 @@ module Enumerable
     counter
   end
 
-  def my_map
+  def my_map(&block)
     result = []
-
-    if block_given?
-      my_each do |value|
-        result.push(yield value)
-      end
-    else
+    if !block_given?
       result = to_enum(:my_map)
+    else
+      my_each do |value|
+        result.push(block.call(value))
+      end
     end
+
     result
   end
 
@@ -137,4 +137,4 @@ module Enumerable
   end
 end
 
-p [2, 4, 4].my_count(-1)
+p [2, 4, 4].my_map
