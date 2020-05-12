@@ -131,6 +131,10 @@ module Enumerable
       memo
     end
   end
+
+  def multiply_els(array)
+    array.my_inject(:*)
+  end
 end
 
 p [2, 4, 4].my_count(-1)
