@@ -127,19 +127,19 @@ module Enumerable
     end
     if sym
       new_array.my_each do |item|
-        if memo
-          memo.send(sym, item)
-        else
-          item
-        end
+        memo = if memo
+            memo.send(sym, item)
+          else
+            item
+          end
       end
     else
       new_array.my_each do |item|
-        if memo
-          yield(memo, item)
-        else
-          item
-        end
+        memo = if memo
+            yield(memo, item)
+          else
+            item
+          end
       end
     end
     memo
