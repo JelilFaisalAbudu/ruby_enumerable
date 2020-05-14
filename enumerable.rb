@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/ModuleLength
+# rubocop:disable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality
 module Enumerable
   def my_each
     if block_given?
@@ -59,8 +59,8 @@ module Enumerable
         return true if arg =~ value
       elsif arg
         return true if arg == value
-      else
-        return true if value
+      elsif value
+        return true
       end
     end
     false
@@ -76,8 +76,8 @@ module Enumerable
         return false if arg =~ value
       elsif arg
         return false if arg == value
-      else
-        return false if value
+      elsif value
+        return false
       end
     end
     true
@@ -116,42 +116,27 @@ module Enumerable
     result
   end
 
-  # rubocop:disable Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/CyclomaticComplexity
-  def my_inject(*args)
-    new_array = is_a?(Array) ? self : to_a
-    memo = args[0] if args[0].is_a? Integer
-    if args[0].is_a?(Symbol) || args[0].is_a?(String)
-      sym = args[0]
-    elsif args[0].is_a?(Integer)
-      sym = args[1] if args[1].is_a?(Symbol) || args[1].is_a?(String)
+  def my_inject(*arguments)
+    array = is_a?(Array) ? self : to_a
+    if arguments.length.positive? && arguments[0].class != Symbol
+      accumulator = arguments[0]
+      array.my_each { |item| accumulator = yield(accumulator, item) }
+    elsif arguments.length.zero?
+      accumulator = to_a[0]
+      array[1..-1].my_each { |item| accumulator = yield(accumulator, item) }
+    elsif arguments[0].class == Symbol
+      accumulator = to_a[0]
+      operation = arguments[0]
+      array[1..-1].my_each { |item| accumulator = accumulator.send(operation, item) }
     end
-    if sym
-      new_array.my_each do |item|
-        memo = if memo
-            memo.send(sym, item)
-          else
-            item
-          end
-      end
-    else
-      new_array.my_each do |item|
-        memo = if memo
-            yield(memo, item)
-          else
-            item
-          end
-      end
-    end
-    memo
+    accumulator
   end
-
-  # rubocop:enable Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/CyclomaticComplexity
 
   def multiply_els(array)
     array.my_inject(:*)
   end
 end
 
-# rubocop:enable Metrics/ModuleLength
+# rubocop:enable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality
 
 p [2, 4, 4].my_map
