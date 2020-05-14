@@ -49,17 +49,29 @@ module Enumerable
     true
   end
 
-  def my_any?
-    flag = false
-    if block_given?
-      my_each do |value|
+  def my_any?(arg=nil)
+    my_each do |value|
+      if block_given?
         if yield value
-          flag = true
-          break
+          return true
         end
+      
+      elsif arg.class == Class
+        if arg === value
+          return 
+        end
+      
+      elsif arg.class == Regexp
+        if arg =~ value
+          return true
+        end
+      
+      else
+        if value == arg
+          return true
       end
     end
-    flag
+    false
   end
 
   def my_none?
