@@ -1,6 +1,7 @@
 # Most of those examples comes from https://apidock.com/ruby/
 # Copy all the examples and paste into enumerable.rb, run the code to check that all methods works correctly
 
+require_relative "enumerable.rb"
 puts 'my_each'
 
 [1, 2, 3, 4, 'hi'].my_each do |x|
