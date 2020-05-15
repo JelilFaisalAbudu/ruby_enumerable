@@ -1,9 +1,9 @@
 
-#  Ruby Enumerable methods
+# Ruby Enumerable methods
 
 > This project demonstrates the recreation of some of the methods that are part of the Ruby Enumerable module.
 
-## Methods Rebuilt:
+## Methods Rebuilt
 
 - .each
 - .each_with_index
@@ -26,7 +26,7 @@
 
 ## Authors
 
-👤 ** Jelil Faisal Abudu**
+👤 **Jelil Faisal Abudu**
 
 - Github: [@JelilFaisalAbudu](https://github.com/JelilFaisalAbudu)
 - Twitter: [@JelilAbudu](https://twitter.com/jelilabudu)
@@ -41,5 +41,3 @@ Feel free to check the [issues page](https://github.com/JelilFaisalAbudu/ruby_en
 ## Show your support
 
 Give a ⭐️ if you like this project!
-
-
