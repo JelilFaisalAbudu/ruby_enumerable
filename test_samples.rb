@@ -1,7 +1,9 @@
+# rubocop:disable Lint/AmbiguousBlockAssociation, Lint/ParenthesesAsGroupedExpression
+
 # Most of those examples comes from https://apidock.com/ruby/
 # Copy all the examples and paste into enumerable.rb, run the code to check that all methods works correctly
 
-require_relative "enumerable.rb"
+require_relative 'enumerable.rb'
 puts 'my_each'
 
 [1, 2, 3, 4, 'hi'].my_each do |x|
@@ -20,7 +22,7 @@ puts 'my_select'
 
 result = [1, 2, 3, 4, 5, 6].select(&:even?) #=> [2, 4, 6]
 puts result
-block = proc { |_num| num = 11 }
+
 puts [2, 4, 7, 11].my_select(&block) #=> [11]
 puts [2, 4, 7, 11].my_select # <Enumerator: [2, 4, 7, 11]:my_select>
 puts [1, 2].my_select { |num| num == 1 } #=> [1]
@@ -112,3 +114,4 @@ puts '-*-*-*-*-*-*-*-*-*-*-*-*-'
 puts 'multiply_els'
 
 puts multiply_els([2, 4, 5]) #=> 40
+# rubocop:enable Lint/AmbiguousBlockAssociation, Lint/ParenthesesAsGroupedExpression
