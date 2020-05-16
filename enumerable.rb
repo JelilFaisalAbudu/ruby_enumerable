@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality
+# rubocop:disable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality, Metrics/MethodLength
 module Enumerable
   def my_each
     if block_given?
@@ -116,20 +116,33 @@ module Enumerable
     result
   end
 
-  def my_inject(*arguments)
-    array = is_a?(Array) ? self : to_a
-    if arguments.length.positive? && arguments[0].class != Symbol
-      accumulator = arguments[0]
-      array.my_each { |item| accumulator = yield(accumulator, item) }
-    elsif arguments.length.zero?
-      accumulator = to_a[0]
-      array[1..-1].my_each { |item| accumulator = yield(accumulator, item) }
-    elsif arguments[0].class == Symbol
-      accumulator = to_a[0]
-      operation = arguments[0]
-      array[1..-1].my_each { |item| accumulator = accumulator.send(operation, item) }
+  def my_inject(*args)
+    new_array = is_a?(Array) ? self : to_a
+
+    if args[0].is_a?(Symbol) || args[0].is_a?(String)
+      sym = args[0]
+    elsif args[0].is_a?(Integer)
+      memo = args[0]
+      sym = args[1] if args[1].is_a?(Symbol) || args[1].is_a?(String)
     end
-    accumulator
+    if sym
+      new_array.my_each do |item|
+        memo = if memo
+                 memo.send(sym, item)
+               else
+                 item
+               end
+      end
+    else
+      new_array.my_each do |item|
+        memo = if memo
+                 yield(memo, item)
+               else
+                 item
+               end
+      end
+    end
+    memo
   end
 
   def multiply_els(array)
@@ -137,6 +150,6 @@ module Enumerable
   end
 end
 
-# rubocop:enable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality
+# rubocop:enable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality, Metrics/MethodLength
 
 p [2, 4, 4].my_map
