@@ -39,11 +39,11 @@ module Enumerable
       if block_given?
         return false unless yield value
       elsif arg.class == Class
-        return false unless arg === value
+        return false unless arg == value
       elsif arg.class == Regexp
-        return false unless arg =~ arg
+        return false unless arg =~ value
       else
-        return false unless value == arg
+        return false unless value
       end
     end
     true
@@ -151,5 +151,3 @@ module Enumerable
 end
 
 # rubocop:enable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality, Metrics/MethodLength
-
-p [2, 4, 4].my_map
