@@ -1,5 +1,4 @@
 # rubocop:disable Lint/AmbiguousBlockAssociation, Lint/ParenthesesAsGroupedExpression
-
 # Most of those examples comes from https://apidock.com/ruby/
 # Copy all the examples and paste into enumerable.rb, run the code to check that all methods works correctly
 

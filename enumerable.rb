@@ -106,6 +106,7 @@ module Enumerable
   def my_map(&block)
     result = []
     return to_enum(:my_map) unless block_given?
+
     my_each do |value|
       if block_given?
         result.push(yield value)
