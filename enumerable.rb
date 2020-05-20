@@ -105,14 +105,14 @@ module Enumerable
 
   def my_map(&block)
     result = []
-    if !block_given?
-      result = to_enum(:my_map)
-    else
-      my_each do |value|
+    return to_enum(:my_map) unless block_given?
+    my_each do |value|
+      if block_given?
+        result.push(yield value)
+      else
         result.push(block.call(value))
       end
     end
-
     result
   end
 
