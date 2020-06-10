@@ -1,4 +1,6 @@
-# rubocop:disable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality, Metrics/MethodLength
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality, Metrics/MethodLength, Style/Documentation, Metrics/AbcSize
 module Enumerable
   def my_each
     if block_given?
@@ -151,4 +153,4 @@ module Enumerable
   end
 end
 
-# rubocop:enable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality, Metrics/MethodLength
+# rubocop: enable Metrics/ModuleLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/CaseEquality, Metrics/MethodLength, Style/Documentation, Metrics/AbcSize
