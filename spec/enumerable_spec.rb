@@ -8,11 +8,11 @@ describe Enumerable do
   let(:my_arr_str) { %w[ant bear cat] }
   let(:my_arr_nil) { [nil, true, 99] }
   let(:my_arr_numeric) { [1, 2i, 3.14] }
-  let(:got_arr) { [] }
+  let(:new_arr) { [] }
 
   describe '#my_each' do
     it 'returns each elements of the array if block is given' do
-      expect(my_arr.my_each { |x| got_arr << x }).to eql(got_arr)
+      expect(my_arr.my_each { |x| new_arr << x }).to eql(new_arr)
     end
 
     it "returns enumerator if block isn't given." do
@@ -22,8 +22,8 @@ describe Enumerable do
 
   describe '#my_each_with_index' do
     it 'returns each elements of the array with index if block is given' do
-      my_arr.my_each_with_index { |value, index| got_arr << value + index }
-      expect(got_arr).to eql [1, 3, 5]
+      my_arr.my_each_with_index { |value, index| new_arr << value + index }
+      expect(new_arr).to eql [1, 3, 5]
     end
 
     it "returns enumerator if block isn't given." do
